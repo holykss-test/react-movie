@@ -1,24 +1,26 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Movie from './Movie';
+
+const movies = [
+  { 
+    title:"A",
+    image:"http://image.tvdaily.co.kr/upimages/gisaimg/201904/081448396.jpg"
+  },
+  { 
+    title:"B",
+    image:"http://image.tvdaily.co.kr/upimages/gisaimg/201904/081448396.jpg"
+  }
+];
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Welcome to master.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {movies.map((movie, index)=> {
+        return <Movie title={movie.title} image={movie.image} key={index}/>
+      })}
     </div>
   );
 }
