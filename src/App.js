@@ -1,28 +1,64 @@
 import React from 'react';
+import {Component} from 'react'
 import logo from './logo.svg';
 import './App.css';
 import Movie from './Movie';
 
-const movies = [
-  { 
-    title:"A",
-    image:"http://image.tvdaily.co.kr/upimages/gisaimg/201904/081448396.jpg"
-  },
-  { 
-    title:"B",
-    image:"http://image.tvdaily.co.kr/upimages/gisaimg/201904/081448396.jpg"
+class App extends Component {
+
+  state = {
+    greeting:"Hello Movie",
+    movies:[
+      { 
+        title:"A",
+        image:"http://image.tvdaily.co.kr/upimages/gisaimg/201904/081448396.jpg"
+      },
+      { 
+        title:"B",
+        image:"http://image.tvdaily.co.kr/upimages/gisaimg/201904/081448396.jpg"
+      }
+    ]
   }
-];
 
+  componentWillMount() {
+    console.log('will mount')
+  }
 
-function App() {
-  return (
-    <div className="App">
-      {movies.map((movie, index)=> {
-        return <Movie title={movie.title} image={movie.image} key={index}/>
-      })}
-    </div>
-  );
+  componentDidMount() {
+    setTimeout(()=>{
+      this.setState({
+        movies:[
+          ...this.state.movies,
+          { 
+            title:"C",
+            image:"http://image.tvdaily.co.kr/upimages/gisaimg/201904/081448396.jpg"
+          }
+            ]
+      })
+    }, 5000)
+  }
+
+  render() {
+    return (
+      <div className="App">
+        {this.state.greeting}
+        {this.state.movies.map((movie, index)=> {
+          return <Movie title={movie.title} image={movie.image} key={index}/>
+        })}
+      </div>
+    );
+  }
+  
 }
+
+// function App() {
+//   return (
+//     <div className="App">
+//       {movies.map((movie, index)=> {
+//         return <Movie title={movie.title} image={movie.image} key={index}/>
+//       })}
+//     </div>
+//   );
+// }
 
 export default App;
