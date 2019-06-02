@@ -8,16 +8,6 @@ class App extends Component {
 
   state = {
     greeting:"Hello Movie",
-    movies:[
-      { 
-        title:"A",
-        image:"http://image.tvdaily.co.kr/upimages/gisaimg/201904/081448396.jpg"
-      },
-      { 
-        title:"B",
-        image:"http://image.tvdaily.co.kr/upimages/gisaimg/201904/081448396.jpg"
-      }
-    ]
   }
 
   componentWillMount() {
@@ -28,23 +18,34 @@ class App extends Component {
     setTimeout(()=>{
       this.setState({
         movies:[
-          ...this.state.movies,
           { 
+            title:"A",
+            image:"http://image.tvdaily.co.kr/upimages/gisaimg/201904/081448396.jpg"
+          },
+          { 
+            title:"B",
+            image:"http://image.tvdaily.co.kr/upimages/gisaimg/201904/081448396.jpg"
+          },
+              { 
             title:"C",
             image:"http://image.tvdaily.co.kr/upimages/gisaimg/201904/081448396.jpg"
           }
             ]
       })
-    }, 5000)
+    }, 3000)
+  }
+
+  _renderMovies = () => {
+    return this.state.movies.map((movie, index)=> {
+      return <Movie title={movie.title} image={movie.image} key={index}/>
+    })
   }
 
   render() {
     return (
       <div className="App">
-        {this.state.greeting}
-        {this.state.movies.map((movie, index)=> {
-          return <Movie title={movie.title} image={movie.image} key={index}/>
-        })}
+        {this.state.movies ? this._renderMovies() : "Loading..."}
+        
       </div>
     );
   }
