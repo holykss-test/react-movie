@@ -5,10 +5,10 @@ import PropTypes from 'prop-types'
 function Movie({title, image}, props) {
     return (
         <div>
-        <MoviePoster image={image}/>
-        <h1>{title}</h1>
-    </div>
-)
+            <MoviePoster image={image}/>
+            <h1>{title}</h1>
+        </div>
+    )
 }
 
 Movie.propTypes = {
@@ -19,11 +19,11 @@ Movie.propTypes = {
 
 function MoviePoster({image}, props) {
     return (
-            <img width="100" height="auto" src={image} />
+        <img width="100" height="auto" src={image}/>
     )
 }
 
 MoviePoster.propTypes = {
-    image:PropTypes.string.isRequired
+    image: PropTypes.string.isRequired
 }
 export default Movie;
