@@ -15,34 +15,29 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch("https://yts.am/api/v2/list_movies.json?sort_by=download_count")
-    .then(response=>response.json())
-    .then(json=>console.log(json))
-    .catch(err=>console.log(err))
+    this._getMovies();
+  }
 
-    setTimeout(()=>{
-      this.setState({
-        movies:[
-          { 
-            title:"A",
-            image:"http://image.tvdaily.co.kr/upimages/gisaimg/201904/081448396.jpg"
-          },
-          { 
-            title:"B",
-            image:"http://image.tvdaily.co.kr/upimages/gisaimg/201904/081448396.jpg"
-          },
-              { 
-            title:"C",
-            image:"http://image.tvdaily.co.kr/upimages/gisaimg/201904/081448396.jpg"
-          }
-            ]
-      })
-    }, 3000)
+  _getMovies = async() => {
+    const movies = await this._callApi()
+    this.setState({
+      movies:movies
+    })
+  }
+
+  _callApi = () => {
+    return fetch("https://yts.am/api/v2/list_movies.json?sort_by=download_count")
+    .then(response=>response.json())
+    .then(json=>{
+      console.log(json.data)
+      return json.data.movies}
+      )
+    .catch(err=>console.log(err))
   }
 
   _renderMovies = () => {
-    return this.state.movies.map((movie, index)=> {
-      return <Movie title={movie.title} image={movie.image} key={index}/>
+    return this.state.movies.map(movie=> {
+      return <Movie title={movie.title} image={movie.large_cover_image} key={movie.id}/>
     })
   }
 
@@ -57,14 +52,5 @@ class App extends Component {
   
 }
 
-// function App() {
-//   return (
-//     <div className="App">
-//       {movies.map((movie, index)=> {
-//         return <Movie title={movie.title} image={movie.image} key={index}/>
-//       })}
-//     </div>
-//   );
-// }
 
 export default App;
